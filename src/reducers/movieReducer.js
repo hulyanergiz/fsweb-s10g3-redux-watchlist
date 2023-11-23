@@ -7,10 +7,11 @@ const reducer = (state = initialState, action) => {
     case NEXT:
       if (state.sira < state.movies.length - 1) {
         return { ...state, sira: state.sira + 1 };
-      } else return state;
+      } else {
+        return state;
+      }
     default:
       return state;
-      break;
   }
 };
 export default reducer;
