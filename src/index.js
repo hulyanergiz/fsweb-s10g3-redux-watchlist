@@ -3,14 +3,15 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { legacy_createStore as createStore } from "redux";
+import { legacy_createStore as createStore, applyMiddleware } from "redux";
+import logger from "redux-logger";
 import { Provider } from "react-redux";
-import reducer from "./reducers/movieReducer";
+import reducers from "./reducers/index";
 import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <Provider store={createStore(reducer)}>
+  <Provider store={createStore(reducers, applyMiddleware(logger))}>
     <BrowserRouter>
       <App />
     </BrowserRouter>
