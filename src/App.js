@@ -5,7 +5,7 @@ import FavMovie from "./components/FavMovie";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_TO_FAV } from "./actions/favActions";
 import { NEXT, PREVIOUS } from "./actions/movieActions";
-
+import { REMOVE_MOVIE } from "./actions/movieActions";
 function App() {
   const { sira, movies } = useSelector((store) => store.movieReducer);
   const dispatch = useDispatch();
@@ -16,7 +16,10 @@ function App() {
   }
   function sonrakiFilm() {
     dispatch({ type: NEXT });
-    dispatch({ type: "NEXT" });
+  }
+  function favorilereEkle() {
+    dispatch({ type: ADD_TO_FAV, payload: movies[sira] });
+    dispatch({ type: REMOVE_MOVIE, payload: movies[sira] });
   }
 
   return (
@@ -60,9 +63,7 @@ function App() {
 
             <button
               className="select-none px-4 py-2 bg-blue-700 hover:bg-blue-600 text-white"
-              onClick={() =>
-                dispatch({ type: ADD_TO_FAV, payload: movies[sira] })
-              }
+              onClick={favorilereEkle}
             >
               Listeme ekle
             </button>

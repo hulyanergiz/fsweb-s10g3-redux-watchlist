@@ -2,6 +2,7 @@ import {
   NEXT,
   PREVIOUS,
 import { NEXT } from "../actions/movieActions";
+  REMOVE_MOVIE,
 } from "../actions/movieActions";
 import { movies } from "../movies";
 
@@ -20,6 +21,16 @@ const reducer = (state = initialState, action) => {
       } else {
         return state;
       }
+    case REMOVE_MOVIE:
+      const notFavMovies = state.movies.filter(
+        (mov) => mov.id !== action.payload.id
+      );
+      return {
+        ...state,
+        movies: notFavMovies,
+        sira:
+          state.sira === state.movies.length - 1 ? state.sira - 1 : state.sira,
+      };
     default:
       return state;
   }
