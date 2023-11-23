@@ -1,7 +1,7 @@
 import {
   NEXT,
   PREVIOUS,
-import { NEXT } from "../actions/movieActions";
+  RECALL_MOVIE,
   REMOVE_MOVIE,
 } from "../actions/movieActions";
 import { movies } from "../movies";
@@ -30,6 +30,11 @@ const reducer = (state = initialState, action) => {
         movies: notFavMovies,
         sira:
           state.sira === state.movies.length - 1 ? state.sira - 1 : state.sira,
+      };
+    case RECALL_MOVIE:
+      return {
+        ...state,
+        movies: [...state.movies, action.payload],
       };
     default:
       return state;

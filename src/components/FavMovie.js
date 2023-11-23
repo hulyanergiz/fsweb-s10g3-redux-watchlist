@@ -1,11 +1,12 @@
 import { useDispatch } from "react-redux";
 import { REMOVE_FROM_FAV } from "../actions/favActions";
-export default function FavMovie({ title, id }) {
+import { RECALL_MOVIE } from "../actions/movieActions";
 
 export default function FavMovie(movie) {
   const dispatch = useDispatch();
   function favCikar() {
     dispatch({ type: REMOVE_FROM_FAV, payload: movie.id });
+    dispatch({ type: RECALL_MOVIE, payload: movie });
   }
   return (
     <div className="flex p-3 pl-4 bg-white mb-2 shadow items-center group">
