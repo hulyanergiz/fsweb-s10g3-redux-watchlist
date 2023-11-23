@@ -4,13 +4,18 @@ import Movie from "./components/Movie";
 import FavMovie from "./components/FavMovie";
 import { useDispatch, useSelector } from "react-redux";
 import { ADD_TO_FAV } from "./actions/favActions";
+import { NEXT, PREVIOUS } from "./actions/movieActions";
 
 function App() {
   const { sira, movies } = useSelector((store) => store.movieReducer);
   const dispatch = useDispatch();
   const favMovies = useSelector((store) => store.favReducer.favMovies);
 
+  function oncekiFilm() {
+    dispatch({ type: PREVIOUS });
+  }
   function sonrakiFilm() {
+    dispatch({ type: NEXT });
     dispatch({ type: "NEXT" });
   }
 
@@ -39,8 +44,16 @@ function App() {
 
           <div className="flex gap-3 justify-end py-3">
             <button
+              onClick={oncekiFilm}
+              disabled={sira === 0}
+              className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500 disabled:opacity-25"
+            >
+              Önceki
+            </button>
+            <button
               onClick={sonrakiFilm}
-              className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500"
+              disabled={sira === movies.length - 1}
+              className="select-none px-4 py-2 border border-blue-700 text-blue-700 hover:border-blue-500 hover:text-blue-500 disabled:opacity-25"
             >
               Sıradaki
             </button>
