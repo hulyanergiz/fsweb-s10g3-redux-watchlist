@@ -6,9 +6,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADD_TO_FAV } from "./actions/favActions";
 import { NEXT, PREVIOUS } from "./actions/movieActions";
 import { REMOVE_MOVIE } from "./actions/movieActions";
+import { useHistory } from "react-router-dom";
 function App() {
   const { sira, movies } = useSelector((store) => store.movieReducer);
   const dispatch = useDispatch();
+  const history = useHistory();
   const favMovies = useSelector((store) => store.favReducer.favMovies);
 
   function oncekiFilm() {
@@ -18,8 +20,14 @@ function App() {
     dispatch({ type: NEXT });
   }
   function favorilereEkle() {
-    dispatch({ type: ADD_TO_FAV, payload: movies[sira] });
-    dispatch({ type: REMOVE_MOVIE, payload: movies[sira] });
+    if (movies.length > 1) {
+      dispatch({ type: ADD_TO_FAV, payload: movies[sira] });
+      dispatch({ type: REMOVE_MOVIE, payload: movies[sira] });
+    } else if (movies.length === 1) {
+      dispatch({ type: ADD_TO_FAV, payload: movies[sira] });
+      dispatch({ type: REMOVE_MOVIE, payload: movies[sira] });
+      history.push("/listem");
+    }
   }
 
   return (
